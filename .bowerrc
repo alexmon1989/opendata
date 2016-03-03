@@ -1,0 +1,5 @@
+{
+    "directory": "public/assets/plugins",
+    "analytics": false,
+    "timeout": 120000
+}
