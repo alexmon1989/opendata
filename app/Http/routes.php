@@ -11,7 +11,5 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    $results = DB::select("SELECT * FROM cl_ExecuteProgProtocol");
-    return view('layout');
-});
+$app->get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
+$app->get('/search', ['uses' => 'SearchController@index', 'as' => 'search']);
