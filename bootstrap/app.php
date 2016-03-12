@@ -24,8 +24,12 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
+class_alias(DaveJamesMiller\Breadcrumbs\Facade::class, 'Breadcrumbs');
 
 $app->withEloquent();
+
+// Загрузка файла конфигурации Breadcrumbs
+$app->configure('breadcrumbs');
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +71,7 @@ $app->singleton(
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
@@ -84,6 +89,7 @@ $app->singleton(
 if (env('APP_DEBUG')) {
     $app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
 }
+$app->register(DaveJamesMiller\Breadcrumbs\ServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

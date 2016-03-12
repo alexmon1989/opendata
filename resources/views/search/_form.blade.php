@@ -1,36 +1,53 @@
-<h3>Заповніть поля для пошуку</h3>
-<form class="form-horizontal">
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Джерело даних:</label>
-        <div class="form-group col-sm-10">
-            @foreach($datasets as $item)
-            <div class="radio">
-                <label>
-                  <input type="radio" name="idOpenDataPassport" value="{{ $item->idOpenDataPassport }}">
-                  {{ $item->DataSetName }}
-                </label>
-            </div>
-            @endforeach
-        </div>
-    </div>
+<form class="sky-form" id="sky-form" action="{{ route('search', ['id' => $open_data_passport->idOpenDataPassport]) }}#search_form">
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Дата публікації на порталі</label>
-        <div class="col-sm-10">
+    <header>{{ $open_data_passport->DataSetName }}</header>
+
+    <fieldset>
+        <section>
+            <label class="label" for="insert_date_from">Дата публікації на порталі</label>
             <div class="row">
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="date_from" name="date_from" placeholder="Від">
-                </div>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="date_from" name="date_from" placeholder="До">
-                </div>
+                <section class="col col-6">
+                    <label class="input">
+                        <i class="icon-append fa fa-calendar"></i>
+                        <input type="text" placeholder="Дата від" id="insert_date_from" name="insert_date_from" value="{{ app('request')->get('insert_date_from') }}">
+                    </label>
+                </section>
+                <section class="col col-6">
+                    <label class="input">
+                        <i class="icon-append fa fa-calendar"></i>
+                        <input type="text" placeholder="Дата до" id="insert_date_to" name="insert_date_to" value="{{ app('request')->get('insert_date_to') }}">
+                    </label>
+                </section>
             </div>
-        </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Пошук</button>
-        </div>
-    </div>
+            <label class="label" for="publication_date_from">Дата публікації патентного повіренного</label>
+            <div class="row">
+                <section class="col col-6">
+                    <label class="input">
+                        <i class="icon-append fa fa-calendar"></i>
+                        <input type="text" placeholder="Дата від" id="publication_date_from" name="publication_date_from" value="{{ app('request')->get('publication_date_from') }}">
+                    </label>
+                </section>
+                <section class="col col-6">
+                    <label class="input">
+                        <i class="icon-append fa fa-calendar"></i>
+                        <input type="text" placeholder="Дата до" id="publication_date_to" name="publication_date_to" value="{{ app('request')->get('publication_date_to') }}">
+                    </label>
+                </section>
+            </div>
+
+            <label class="label" for="publication_number">№ патентного повіренного</label>
+            <label class="input">
+                <label class="input">
+                    <i class="icon-append fa fa-pencil"></i>
+                    <input type="text" placeholder="№ патентного повіренного" id="publication_number" name="publication_number" value="{{ app('request')->get('publication_number') }}">
+                </label>
+            </label>
+        </section>
+    </fieldset>
+
+    <footer>
+        <button class="btn-u" type="submit"><i class="fa fa-search"></i> Пошук</button>
+        <button class="btn-u btn-u-default" type="reset"><i class="fa fa-reply-all"></i> Скинути</button>
+    </footer>
 </form>
