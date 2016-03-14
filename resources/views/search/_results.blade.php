@@ -13,9 +13,11 @@
                 <h3 class="panel-title"><i class="fa fa-list"></i> Список файлів XML</h3>
             </div>
 
+            @if ($search_results->total() > 0)
             <div class="panel-body">
-                <p><a class="btn-u btn-u-light-grey" href="#"><i class="fa fa-download"></i> Завантажити файл-список посилань</a></p>
+                <p><a class="btn-u btn-u-light-grey" href="{{ route('get-urls-file', array_merge(['id_open_data_passport' => app('request')->segment(3)], app('request')->all())) }}"><i class="fa fa-download"></i> Завантажити файл-список посилань</a></p>
             </div>
+            @endif
 
             <table class="table table-striped">
                 <thead>
@@ -23,7 +25,7 @@
                         <th>#</th>
                         <th>Пряме посилання</th>
                         <th>Дата публікації на порталі</th>
-                        <th>№ охоронного документа{{ app('request')->segment(3) == 7 ? ' (патентного повіренного)' : '' }}</th>
+                        <th>Дата офіційної публікації{{ app('request')->segment(3) == 7 ? ' (патентного повіренного)' : '' }}</th>
                         <th>Статус даних</th>
                         <th>Дії</th>
                     </tr>

@@ -111,8 +111,76 @@ class SearchController extends Controller
         }
     }
 
-    public function getUrlsFile()
+    /**
+     * Действие исаользует GET-параметры для получения отфильтрованных данных (ссылок на XML), формирует urls-файл и
+     * генеририрует отклик (response) для загрузки файла этого файла.
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function getUrlsFile(Request $request)
     {
-        return 123;
+        // Если запрос пришёл с параметрами
+        if (!empty($request->all())) {
+
+            // Проводим валидацию данных
+            $rules = [
+                'id_open_data_passport' => 'required|exists:tb_OpenData,idOpenDataPassport',
+                'insert_date_from'      => 'required_without_all:insert_date_to,publication_date_from,publication_date_to,publication_number|date',
+                'insert_date_to'        => 'required_without_all:insert_date_from,publication_date_from,publication_date_to,publication_number|date',
+                'publication_date_from' => 'required_without_all:insert_date_from,insert_date_to,publication_date_to,publication_number|date',
+                'publication_date_to'   => 'required_without_all:insert_date_from,insert_date_to,publication_date_from,publication_number|date',
+                'publication_number'    => 'required_without_all:insert_date_from,insert_date_to,publication_date_from,publication_date_to|integer|min:1',
+                'dataset_status'        => 'integer|in:1,2',
+            ];
+            // TODO: сообщения ошибок валидации
+            $this->validate($request, $rules);
+
+            // Получаем отфильтрованные данные
+            $openData = OpenData::where('idOpenDataPassport', $request->id_open_data_passport);
+            $insertDateFrom = trim($request->get('insert_date_from'));
+            if ($insertDateFrom != '') {
+                $openData->where('InsertDate', '>=', date('Y-m-d', strtotime($insertDateFrom)));
+            }
+            $insertDateTo = trim($request->get('insert_date_to'));
+            if ($insertDateTo != '') {
+                $openData->where('InsertDate', '<=', date('Y-m-d 23:59:59', strtotime($insertDateTo)));
+            }
+            $publicationDateFrom = trim($request->get('publication_date_from'));
+            if ($publicationDateFrom != '') {
+                $openData->where('PublicationDate', '>=', date('Y-m-d', strtotime($publicationDateFrom)));
+            }
+            $publicationDateTo = trim($request->get('publication_date_to'));
+            if ($publicationDateTo != '') {
+                $openData->where('PublicationDate', '<=', date('Y-m-d 23:59:59', strtotime($publicationDateTo)));
+            }
+            $publicationNumber = (int) $request->get('publication_number');
+            if ($publicationNumber > 0) {
+                $openData->where('PublicationNumber', '=', $publicationNumber);
+            }
+            $dataSetStatus = (int) $request->get('dataset_status');
+            if ($dataSetStatus > 0) {
+                $openData->where('dataSetstatus', '=', $dataSetStatus);
+            }
+            $openData = $openData->get();
+
+            // Генерируем urls-файл
+            if (count($openData) > 0) {
+                // Создаём файл
+                $filePath = 'temp/'.str_random().'.urls';
+                $fp = fopen($filePath, 'w');
+
+                // Заполняем файл
+                foreach ($openData as $item) {
+                    fwrite($fp, $item->DataSetFolder . "\r\n");
+                }
+                fclose($fp);
+
+                // Генерируем response на загрузку файла
+                return response()->download($filePath);
+            }
+        }
+
+        abort(404);
     }
 }
