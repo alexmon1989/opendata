@@ -22,7 +22,7 @@
         </section>
 
         <section>
-            <label class="label" for="publication_date_from">{{ app('request')->segment(2) != 7 ? 'Дата офіційної публікації' : 'Дата публікації патентного повіренного' }}</label>
+            <label class="label" for="publication_date_from">{{ app('request')->segment(3) != 7 ? 'Дата офіційної публікації' : 'Дата публікації патентного повіренного' }}</label>
             <div class="row">
                 <div class="col col-6">
                     <label class="input">
@@ -40,7 +40,7 @@
         </section>
 
         <section>
-            <label class="label" for="publication_number">№ охоронного документа{{ app('request')->segment(2) == 7 ? ' (патентного повіренного)' : '' }}</label>
+            <label class="label" for="publication_number">№ охоронного документа{{ app('request')->segment(3) == 7 ? ' (патентного повіренного)' : '' }}</label>
             <label class="input">
                 <label class="input">
                     <i class="icon-append fa fa-pencil"></i>
