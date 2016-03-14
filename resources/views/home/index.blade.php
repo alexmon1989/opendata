@@ -1,6 +1,7 @@
 @extends('layout.master')
 
 @section('content')
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+        <h1>Набори відкритих даних ДП "Український інститут промислової власності" (Укрпатент)</h1>
+        <p class="lead">Вітаємо вас на веб-сайті.</p>
+        <p>Інформація знаходиться в розробці.</p>
 @stop

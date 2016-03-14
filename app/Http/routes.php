@@ -16,3 +16,9 @@ $app->get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
 $app->get('/search', ['uses' => 'SearchController@index', 'as' => 'search_default']);
 $app->get('/search/index/{id}', ['uses' => 'SearchController@index', 'as' => 'search']);
 $app->get('/search/get-urls-file', ['uses' => 'SearchController@getUrlsFile', 'as' => 'get-urls-file']);
+
+$app->get('/about', ['as' => 'about', function() {
+    return view('about.index');
+}]);
+
+$app->get('/contacts', ['uses' => 'ContactsController@index', 'as' => 'contacts']);
