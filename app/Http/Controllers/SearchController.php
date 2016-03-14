@@ -28,9 +28,11 @@ class SearchController extends Controller
                 ->idOpenDataPassport;
         }
 
-        // Текущий "набор данных"
+        // Данные текущего "набора данных"
         $data['open_data_passport'] = $data['open_data_passports']->where('idOpenDataPassport', intval($id))->first();
         if ($data['open_data_passport']) {
+
+            // TODO: вынести логику валидации и получение отфильтрованной коллекции в модель OpenDataPassport
 
             // Если форма была отправлена, то делаем поиск
             if (!empty($request->all())) {
@@ -41,6 +43,7 @@ class SearchController extends Controller
                     'publication_date_from' => 'required_without_all:insert_date_from,insert_date_to,publication_date_to,publication_number|date',
                     'publication_date_to'   => 'required_without_all:insert_date_from,insert_date_to,publication_date_from,publication_number|date',
                     'publication_number'    => 'required_without_all:insert_date_from,insert_date_to,publication_date_from,publication_date_to|integer|min:1',
+                    'dataset_status'        => 'integer|in:1,2',
                 ];
 
                 // Сообщения ошибок валидации
@@ -52,6 +55,7 @@ class SearchController extends Controller
                     'publication_date_to.date'      => 'Поле <strong>"Дата публікації патентного повіренного (дата до)"</strong> має містити реальну дату.',
                     'publication_number.integer'    => 'Поле <strong>"№ патентного повіренного"</strong> має містити цілочисельне значення.',
                     'publication_number.min'        => 'Поле <strong>"№ патентного повіренного"</strong> має містити значення більше 0.',
+                    'dataset_status.in'             => 'Поле <strong>"Статус даних"</strong> містить недопустиме значення.',
                 ];
 
                 // Валидация данных
@@ -63,23 +67,27 @@ class SearchController extends Controller
                     // Фильтры
                     $insertDateFrom = trim($request->get('insert_date_from'));
                     if ($insertDateFrom != '') {
-                        $searchResults->where('InsertDate', '>=', $request->get('insert_date_from'));
+                        $searchResults->where('InsertDate', '>=', date('Y-m-d', strtotime($insertDateFrom)));
                     }
                     $insertDateTo = trim($request->get('insert_date_to'));
                     if ($insertDateTo != '') {
-                        $searchResults->where('InsertDate', '<=', $request->get('insert_date_to'));
+                        $searchResults->where('InsertDate', '<=', date('Y-m-d', strtotime($insertDateTo)));
                     }
                     $publicationDateFrom = trim($request->get('publication_date_from'));
                     if ($publicationDateFrom != '') {
-                        $searchResults->where('PublicationDate', '>=', $request->get('publication_date_from'));
+                        $searchResults->where('PublicationDate', '>=', date('Y-m-d', strtotime($publicationDateFrom)));
                     }
                     $publicationDateTo = trim($request->get('publication_date_to'));
                     if ($publicationDateTo != '') {
-                        $searchResults->where('PublicationDate', '<=', $request->get('publication_date_to'));
+                        $searchResults->where('PublicationDate', '<=', date('Y-m-d', strtotime($publicationDateTo)));
                     }
                     $publicationNumber = (int) $request->get('publication_number');
                     if ($publicationNumber > 0) {
-                        $searchResults->where('PublicationNumber', '=', $request->get('publication_number'));
+                        $searchResults->where('PublicationNumber', '=', $publicationNumber);
+                    }
+                    $dataSetStatus = (int) $request->get('dataset_status');
+                    if ($dataSetStatus > 0) {
+                        $searchResults->where('dataSetstatus', '=', $dataSetStatus);
                     }
 
                     // Pagination
@@ -89,12 +97,22 @@ class SearchController extends Controller
                 }
             }
 
+            // Мин., макс. года для datepicker
+            $data['min_publication_date'] = date('d.m.Y', strtotime(OpenData::min('PublicationDate')));
+            $data['max_publication_date'] = date('d.m.Y', strtotime(OpenData::max('PublicationDate')));
+            $data['min_insert_date'] = date('d.m.Y', strtotime(OpenData::min('InsertDate')));
+            $data['max_insert_date'] = date('d.m.Y', strtotime(OpenData::max('InsertDate')));
+
             // Отображение страницы
             return view('search.index', $data);
 
         } else {
             abort(404);
         }
+    }
 
+    public function getUrlsFile()
+    {
+        return 123;
     }
 }

@@ -40,53 +40,31 @@
     </div>
 
     @if (isset($search_results))
-        <div class="row">
-            <div class="col-md-12">
-                <div class="headline">
-                    <h3>Результати пошуку</h3>
-                </div>
-
-                <p><small>Кількість: <strong>{{ $search_results->total() }}</strong></small></p>
-
-                <div class="text-center">{!! $search_results->render() !!}</div>
-
-                <div class="panel panel-dark-blue margin-bottom-40">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-list"></i> Список файлів XML</h3>
-                    </div>
-
-                    <div class="panel-body">
-                        <p><a class="btn-u btn-u-light-grey" href="#"><i class="fa fa-download"></i> Завантажити файл-список посилань</a></p>
-                    </div>
-
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Пряме посилання</th>
-                                <th>Дата публікації на порталі</th>
-                                <th>Дата публікації патентного повіренного</th>
-                                <th>Дії</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1; ?>
-                            @foreach($search_results as $item)
-                            <tr>
-                                <td>{{ ($i + (20 * ($search_results->currentPage() - 1))) }}.</td>
-                                <td><a target="_blank" href="{{ $item->DataSetFolder }}">{{ $item->DataSetFolder }}</a></td>
-                                <td>{{ date('d.m.Y', strtotime($item->InsertDate)) }}</td>
-                                <td>{{ date('d.m.Y', strtotime($item->PublicationDate)) }}</td>
-                                <td><a class="btn-u btn-u-sm btn-u-sea" href="#"><i class="fa fa-download"></i> Завантажити</a></td>
-                            </tr>
-                            <?php $i++; ?>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                    <div class="text-center">{!! $search_results->render() !!}</div>
-                </div>
-            </div>
-        </div>
+        @include('search._results')
     @endif
+@stop
+
+@section('scripts')
+	<script src="{{ url('assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ url('assets/plugins/sky-forms-pro/skyforms/js/datepicker-uk.js') }}"></script>
+
+    <script>
+        $(function() {
+            $( ".datepicker-publication" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "c-100:c+100",
+                minDate: '{{ $min_publication_date }}',
+                maxDate: '{{ $max_publication_date }}'
+
+            });
+            $( ".datepicker-insert" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "c-100:c+100",
+                minDate: '{{ $min_insert_date }}',
+                maxDate: '{{ $max_insert_date }}'
+            });
+        });
+    </script>
 @stop

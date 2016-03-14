@@ -6,43 +6,56 @@
         <section>
             <label class="label" for="insert_date_from">Дата публікації на порталі</label>
             <div class="row">
-                <section class="col col-6">
+                <div class="col col-6">
                     <label class="input">
                         <i class="icon-append fa fa-calendar"></i>
-                        <input type="text" placeholder="Дата від" id="insert_date_from" name="insert_date_from" value="{{ app('request')->get('insert_date_from') }}">
+                        <input type="text" class="datepicker-insert" placeholder="Дата від" id="insert_date_from" name="insert_date_from" value="{{ app('request')->get('insert_date_from') }}">
                     </label>
-                </section>
-                <section class="col col-6">
+                </div>
+                <div class="col col-6">
                     <label class="input">
                         <i class="icon-append fa fa-calendar"></i>
-                        <input type="text" placeholder="Дата до" id="insert_date_to" name="insert_date_to" value="{{ app('request')->get('insert_date_to') }}">
+                        <input type="text" class="datepicker-insert" placeholder="Дата до" id="insert_date_to" name="insert_date_to" value="{{ app('request')->get('insert_date_to') }}">
                     </label>
-                </section>
+                </div>
             </div>
+        </section>
 
-            <label class="label" for="publication_date_from">Дата публікації патентного повіренного</label>
+        <section>
+            <label class="label" for="publication_date_from">{{ app('request')->segment(2) != 7 ? 'Дата офіційної публікації' : 'Дата публікації патентного повіренного' }}</label>
             <div class="row">
-                <section class="col col-6">
+                <div class="col col-6">
                     <label class="input">
                         <i class="icon-append fa fa-calendar"></i>
-                        <input type="text" placeholder="Дата від" id="publication_date_from" name="publication_date_from" value="{{ app('request')->get('publication_date_from') }}">
+                        <input type="text" class="datepicker-publication" placeholder="Дата від" id="publication_date_from" name="publication_date_from" value="{{ app('request')->get('publication_date_from') }}">
                     </label>
-                </section>
-                <section class="col col-6">
+                </div>
+                <div class="col col-6">
                     <label class="input">
                         <i class="icon-append fa fa-calendar"></i>
-                        <input type="text" placeholder="Дата до" id="publication_date_to" name="publication_date_to" value="{{ app('request')->get('publication_date_to') }}">
+                        <input type="text" class="datepicker-publication" placeholder="Дата до" id="publication_date_to" name="publication_date_to" value="{{ app('request')->get('publication_date_to') }}">
                     </label>
-                </section>
+                </div>
             </div>
+        </section>
 
-            <label class="label" for="publication_number">№ патентного повіренного</label>
+        <section>
+            <label class="label" for="publication_number">№ охоронного документа{{ app('request')->segment(2) == 7 ? ' (патентного повіренного)' : '' }}</label>
             <label class="input">
                 <label class="input">
                     <i class="icon-append fa fa-pencil"></i>
                     <input type="text" placeholder="№ патентного повіренного" id="publication_number" name="publication_number" value="{{ app('request')->get('publication_number') }}">
                 </label>
             </label>
+        </section>
+
+        <section>
+            <label class="label">Статус даних</label>
+            <div class="inline-group">
+                <label class="radio"><input name="dataset_status" value="" {{ app('request')->get('dataset_status') == '' ? 'checked="checked"' : '' }} type="radio" name="radio-inline"><i class="rounded-x"></i>Усі</label>
+                <label class="radio"><input name="dataset_status" value="1" {{ app('request')->get('dataset_status') == 1 ? 'checked="checked"' : '' }} type="radio" name="radio-inline"><i class="rounded-x"></i>Нові</label>
+                <label class="radio"><input name="dataset_status" value="2" {{ app('request')->get('dataset_status') == 2 ? 'checked="checked"' : '' }} type="radio" name="radio-inline"><i class="rounded-x"></i>Змінені</label>
+            </div>
         </section>
     </fieldset>
 
