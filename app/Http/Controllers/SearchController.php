@@ -71,7 +71,7 @@ class SearchController extends Controller
                     }
                     $insertDateTo = trim($request->get('insert_date_to'));
                     if ($insertDateTo != '') {
-                        $searchResults->where('InsertDate', '<=', date('Y-m-d', strtotime($insertDateTo)));
+                        $searchResults->where('InsertDate', '<=', date('Y-m-d 23:59:59', strtotime($insertDateTo)));
                     }
                     $publicationDateFrom = trim($request->get('publication_date_from'));
                     if ($publicationDateFrom != '') {
@@ -79,7 +79,7 @@ class SearchController extends Controller
                     }
                     $publicationDateTo = trim($request->get('publication_date_to'));
                     if ($publicationDateTo != '') {
-                        $searchResults->where('PublicationDate', '<=', date('Y-m-d', strtotime($publicationDateTo)));
+                        $searchResults->where('PublicationDate', '<=', date('Y-m-d 23:59:59', strtotime($publicationDateTo)));
                     }
                     $publicationNumber = (int) $request->get('publication_number');
                     if ($publicationNumber > 0) {
