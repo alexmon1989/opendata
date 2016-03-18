@@ -26,8 +26,8 @@
                         <th>Пряме посилання</th>
                         <th>Дата публікації на порталі</th>
                         <th>Дата офіційної публікації{{ app('request')->segment(3) == 7 ? ' (патентного повіренного)' : '' }}</th>
+                        <th>№ охоронного документа{{ app('request')->segment(3) == 7 ? ' (патентного повіренного)' : '' }}</th>
                         <th>Статус даних</th>
-                        <th>Дії</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,8 +38,8 @@
                         <td><a target="_blank" href="{{ $item->DataSetFolder }}">{{ $item->DataSetFolder }}</a></td>
                         <td>{{ date('d.m.Y', strtotime($item->InsertDate)) }}</td>
                         <td>{{ date('d.m.Y', strtotime($item->PublicationDate)) }}</td>
+                        <td>{{ $item->PublicationNumber }}</td>
                         <td><span class="badge badge-{{ $item->DataSetstatus == 1 ? 'u' : 'yellow' }} rounded">{{ $item->DataSetstatus == 1 ? 'Нове' : 'Змінено' }}</span></td>
-                        <td><a class="btn-u btn-u-sm btn-u-sea" href="#"><i class="fa fa-download"></i> Завантажити</a></td>
                     </tr>
                     <?php $i++; ?>
                     @endforeach
