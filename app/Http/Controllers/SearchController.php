@@ -98,10 +98,10 @@ class SearchController extends Controller
             }
 
             // Мин., макс. года для datepicker
-            $data['min_publication_date'] = date('d.m.Y', strtotime(OpenData::min('PublicationDate')));
-            $data['max_publication_date'] = date('d.m.Y', strtotime(OpenData::max('PublicationDate')));
-            $data['min_insert_date'] = date('d.m.Y', strtotime(OpenData::min('InsertDate')));
-            $data['max_insert_date'] = date('d.m.Y', strtotime(OpenData::max('InsertDate')));
+            $data['min_publication_date'] = date('d.m.Y', strtotime(OpenData::where('idOpenDataPassport', $id)->min('PublicationDate')));
+            $data['max_publication_date'] = date('d.m.Y', strtotime(OpenData::where('idOpenDataPassport', $id)->max('PublicationDate')));
+            $data['min_insert_date'] = date('d.m.Y', strtotime(OpenData::where('idOpenDataPassport', $id)->min('InsertDate')));
+            $data['max_insert_date'] = date('d.m.Y', strtotime(OpenData::where('idOpenDataPassport', $id)->max('InsertDate')));
 
             // Отображение страницы
             return view('search.index', $data);
