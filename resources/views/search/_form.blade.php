@@ -44,7 +44,7 @@
             <label class="input">
                 <label class="input">
                     <i class="icon-append fa fa-pencil"></i>
-                    <input type="text" placeholder="№ патентного повіренного" id="publication_number" name="publication_number" value="{{ app('request')->get('publication_number') }}">
+                    <input type="text" placeholder="№ охоронного документа{{ app('request')->segment(3) == 7 ? ' (патентного повіренного)' : '' }}" id="publication_number" name="publication_number" value="{{ app('request')->get('publication_number') }}">
                 </label>
             </label>
         </section>
