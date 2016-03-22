@@ -317,5 +317,26 @@ var App = function () {
 			MenuMode();
 		  }
 		},
+
+        initSearchForm: function(minPublicationDate, maxPublicationDate, minInsertDate, maxInsertDate) {
+            $( ".datepicker-publication" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "c-100:c+100",
+                minDate: minPublicationDate,
+                maxDate: maxPublicationDate
+
+            });
+            $( ".datepicker-insert" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "c-100:c+100",
+                minDate: minInsertDate,
+                maxDate: maxInsertDate
+            });
+            $( "#reset-search-form" ).click(function() {
+                $( "#sky-form input" ).val('');
+            });
+        }
 	};
 }();

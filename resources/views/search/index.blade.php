@@ -50,21 +50,10 @@
 
     <script>
         $(function() {
-            $( ".datepicker-publication" ).datepicker({
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "c-100:c+100",
-                minDate: '{{ $min_publication_date }}',
-                maxDate: '{{ $max_publication_date }}'
-
-            });
-            $( ".datepicker-insert" ).datepicker({
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "c-100:c+100",
-                minDate: '{{ $min_insert_date }}',
-                maxDate: '{{ $max_insert_date }}'
-            });
+            App.initSearchForm('{{ $min_publication_date }}',
+            '{{ $max_publication_date }}',
+            '{{ $min_insert_date }}',
+            '{{ $max_insert_date }}');
         });
     </script>
 @stop

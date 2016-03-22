@@ -87,6 +87,8 @@
 	<script src="{{ url('assets/plugins/placeholder-IE-fixes.js') }}"></script>
 	<![endif]-->
 
+	<script type="text/javascript" src="{{ url('assets/js/custom.js') }}"></script>
+
 	@yield('scripts')
 </body>
 </html>

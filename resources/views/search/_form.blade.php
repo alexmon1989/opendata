@@ -61,6 +61,6 @@
 
     <footer>
         <button class="btn-u" type="submit"><i class="fa fa-search"></i> Пошук</button>
-        <button class="btn-u btn-u-default" type="reset"><i class="fa fa-reply-all"></i> Скинути</button>
+        <button class="btn-u btn-u-default" type="button" id="reset-search-form"><i class="fa fa-reply-all"></i> Скинути</button>
     </footer>
 </form>
