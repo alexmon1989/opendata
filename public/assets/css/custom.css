@@ -1,1 +1,10 @@
 /* Add here all your css styles (customizations) */
+.footer-v1 .copyright {
+    background: #fff
+}
+
+.footer-v1 .copyright p {
+    color: #000;
+}
+
+.height-600 { min-height: 600px !important;}

@@ -13,7 +13,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Назва набору даних</th>
+                        <th width="45%">Назва набору даних</th>
                         <th>ПІБ відповідальної особи</th>
                         <th>Телефон</th>
                         <th>E-Mail</th>
@@ -24,10 +24,10 @@
                     @foreach($data_sets as $item)
                     <tr>
                         <td>{{ $i }}.</td>
-                        <td>{{ $item->DataSetName }}</td>
-                        <td>{{ $item->ResponsiblePerson }}</td>
-                        <td>{{ $item->ResponsiblePersonPhone }}</td>
-                        <td>{{ $item->ResponsiblePersonEMail }}</td>
+                        <td>{!! $item->DataSetName !!}</td>
+                        <td>{!! $item->ResponsiblePerson !!}</td>
+                        <td>{!! $item->ResponsiblePersonPhone !!}</td>
+                        <td>{!! $item->ResponsiblePersonEMail !!}</td>
                     </tr>
                     <?php $i++ ?>
                     @endforeach

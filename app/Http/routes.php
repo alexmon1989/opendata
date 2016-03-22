@@ -11,7 +11,7 @@
 |
 */
 
-$app->get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
+$app->get('/', ['uses' => 'SearchController@index', 'as' => 'home']);
 
 $app->get('/search', ['uses' => 'SearchController@index', 'as' => 'search_default']);
 $app->get('/search/index/{id}', ['uses' => 'SearchController@index', 'as' => 'search']);

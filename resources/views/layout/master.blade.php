@@ -53,7 +53,7 @@
 		@yield('breadcrumbs')
 
 		<!--=== Content ===-->
-		<div class="container content height-500">
+		<div class="container content height-600">
 
 			@yield('content', 'Информація відсутня')
 

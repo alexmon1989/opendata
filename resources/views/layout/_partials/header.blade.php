@@ -19,8 +19,7 @@
         <div class="container">
             <ul class="nav navbar-nav">
                 <!-- Верхнее меню -->
-                <li class="{{ app('request')->segment(1) == '' ? 'active' : '' }}"><a href="{{ route('home') }}">Головна</a></li>
-                <li class="{{ app('request')->segment(1) == 'search' ? 'active' : '' }}"><a href="{{ route('search_default') }}">Пошук</a></li>
+                <li class="{{ in_array(app('request')->segment(1), ['', 'search']) ? 'active' : '' }}"><a href="{{ route('home') }}">Головна (пошук)</a></li>
                 <li class="{{ app('request')->segment(1) == 'about' ? 'active' : '' }}"><a href="{{ route('about') }}">Про сервіс</a></li>
                 <li class="{{ app('request')->segment(1) == 'contacts' ? 'active' : '' }}"><a href="{{ route('contacts') }}">Контакти</a></li>
                 <!-- End Верхнее меню -->
