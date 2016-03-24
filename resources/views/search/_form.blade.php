@@ -1,6 +1,21 @@
 <form class="sky-form" id="sky-form" action="{{ route('search', ['id' => $open_data_passport->idOpenDataPassport]) }}#search_form">
 
-    <header>{{ $open_data_passport->DataSetName }}</header>
+    <header>
+        <div class="row">
+            <div class="col-md-10">{{ $open_data_passport->DataSetName }}</div>
+            <div class="col-md-2">
+                <p class="passports-files text-right">
+                    @if ($open_data_passport->FTP_PDF_File)
+                    <a target="_blank" href="{{ $open_data_passport->FTP_PDF_File }}" title="Завантажити PDF-опис"><i class="fa fa-file-pdf-o"></i></a>
+                    @endif
+
+                    @if ($open_data_passport->FTP_DTD_File)
+                    <a target="_blank" href="{{ $open_data_passport->FTP_DTD_File }}" title="Завантажити DTD-схему"><i class="fa fa-file-archive-o"></i></a>
+                    @endif
+                </p>
+            </div>
+        </div>
+    </header>
 
     <fieldset>
         <section>
