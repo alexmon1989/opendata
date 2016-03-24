@@ -1,5 +1,9 @@
 @extends('layout.master')
 
+@section('page_title')
+    Контакти
+@stop
+
 @section('breadcrumbs')
     {!! Breadcrumbs::render('contacts', ['h1' => 'Контакти']) !!}
 @stop

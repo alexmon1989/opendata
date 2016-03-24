@@ -1,5 +1,9 @@
 @extends('layout.master')
 
+@section('page_title')
+    Пошук
+@stop
+
 @section('breadcrumbs')
     {!! Breadcrumbs::render('search', ['h1' => 'Пошук у наборах даних']) !!}
 @stop

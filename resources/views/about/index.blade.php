@@ -1,5 +1,9 @@
 @extends('layout.master')
 
+@section('page_title')
+    Про сервіс
+@stop
+
 @section('breadcrumbs')
     {!! Breadcrumbs::render('about', ['h1' => 'Про сервіс']) !!}
 @stop

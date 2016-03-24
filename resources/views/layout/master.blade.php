@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="uk" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="uk"> <!--<![endif]-->
 <head>
-	<title>Відкриті дані</title>
+	<title>@yield('page_title', 'Головна (пошук)') - Набори відкритих даних</title>
 
 	<!-- Meta -->
 	<meta charset="utf-8">
