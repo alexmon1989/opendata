@@ -42,7 +42,7 @@ class SearchController extends Controller
                     'insert_date_to'        => 'required_without_all:insert_date_from,publication_date_from,publication_date_to,publication_number|date',
                     'publication_date_from' => 'required_without_all:insert_date_from,insert_date_to,publication_date_to,publication_number|date',
                     'publication_date_to'   => 'required_without_all:insert_date_from,insert_date_to,publication_date_from,publication_number|date',
-                    'publication_number'    => 'required_without_all:insert_date_from,insert_date_to,publication_date_from,publication_date_to|integer|min:1',
+                    'publication_number'    => 'required_without_all:insert_date_from,insert_date_to,publication_date_from,publication_date_to|alpha_dash',
                     'dataset_status'        => 'integer|in:1,2',
                 ];
 
@@ -53,8 +53,7 @@ class SearchController extends Controller
                     'insert_date_to.date'           => 'Поле <strong>"Дата публікації на порталі (дата до)"</strong> має містити реальну дату.',
                     'publication_date_from.date'    => 'Поле <strong>"Дата публікації патентного повіренного (дата від)"</strong> має містити реальну дату.',
                     'publication_date_to.date'      => 'Поле <strong>"Дата публікації патентного повіренного (дата до)"</strong> має містити реальну дату.',
-                    'publication_number.integer'    => 'Поле <strong>"№ патентного повіренного"</strong> має містити цілочисельне значення.',
-                    'publication_number.min'        => 'Поле <strong>"№ патентного повіренного"</strong> має містити значення більше 0.',
+                    'publication_number.alpha_dash' => 'Поле <strong>"№ охоронного документа"</strong> містить недопустимі символи.',
                     'dataset_status.in'             => 'Поле <strong>"Статус даних"</strong> містить недопустиме значення.',
                 ];
 
@@ -81,8 +80,8 @@ class SearchController extends Controller
                     if ($publicationDateTo != '') {
                         $searchResults->where('PublicationDate', '<=', date('Y-m-d 23:59:59', strtotime($publicationDateTo)));
                     }
-                    $publicationNumber = (int) $request->get('publication_number');
-                    if ($publicationNumber > 0) {
+                    $publicationNumber = trim($request->get('publication_number'));
+                    if ($publicationNumber != '') {
                         $searchResults->where('PublicationNumber', '=', $publicationNumber);
                     }
                     $dataSetStatus = (int) $request->get('dataset_status');
@@ -154,8 +153,8 @@ class SearchController extends Controller
             if ($publicationDateTo != '') {
                 $openData->where('PublicationDate', '<=', date('Y-m-d 23:59:59', strtotime($publicationDateTo)));
             }
-            $publicationNumber = (int) $request->get('publication_number');
-            if ($publicationNumber > 0) {
+            $publicationNumber = trim($request->get('publication_number'));
+            if ($publicationNumber != '') {
                 $openData->where('PublicationNumber', '=', $publicationNumber);
             }
             $dataSetStatus = (int) $request->get('dataset_status');
