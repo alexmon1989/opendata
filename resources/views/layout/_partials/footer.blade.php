@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-center">{{ date('Y') }} р. &copy; Всі права захищено.</p>
+                    <p class="text-center">&copy; ДП «Український інститут інтелектуальної власності», {{ date('Y') }} р.</p>
                 </div>
             </div>
         </div>
