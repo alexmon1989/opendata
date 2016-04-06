@@ -24,8 +24,9 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
-class_alias(DaveJamesMiller\Breadcrumbs\Facade::class, 'Breadcrumbs');
-
+if (!class_exists('Breadcrumbs')) {
+    class_alias(DaveJamesMiller\Breadcrumbs\Facade::class, 'Breadcrumbs');
+}
 $app->withEloquent();
 
 // Загрузка файла конфигурации Breadcrumbs
